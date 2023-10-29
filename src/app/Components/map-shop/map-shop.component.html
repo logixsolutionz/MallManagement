@@ -1,0 +1,202 @@
+<mat-tab-group mat-stretch-tabs="true" mat-align-tabs="center">
+    <mat-tab label="MAP Shop" class="h-100">
+        <div class="container p-3 bg-light">
+           
+                <div class="p-3 border bg-white">
+                    <mat-form-field appearance="outline" class="p-3 w-50">
+                        <mat-label>Select Shop</mat-label>
+                        <mat-select id="shop" (selectionChange)="onShopIDChage()" [(ngModel)]="ShopID">
+                            <mat-option><ngx-mat-select-search [(ngModel)]="shopSearch"
+                                [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'"
+                                name="search"></ngx-mat-select-search></mat-option>
+                            <mat-option *ngFor="let item of ShopList | filter: shopSearch" [value]="item.shopID">{{item.shopTitle}}</mat-option>
+                        </mat-select>
+        
+                    </mat-form-field>
+        
+                    <!-- customer -->
+                    <mat-form-field appearance="outline" class="p-3 w-50">
+                        <mat-label>Select Cutomer</mat-label>
+                        <mat-select id="party" [(ngModel)]="partyID">
+                            <mat-option><ngx-mat-select-search [(ngModel)]="customerSearch"
+                                [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'"
+                                name="search"></ngx-mat-select-search></mat-option>
+                            <mat-option *ngFor="let item of customerList |filter:customerSearch" [value]="item.partyID">{{item.partyName}} - ({{item.partyCNIC}})</mat-option>
+                        </mat-select>
+        
+                    </mat-form-field>
+        
+                    <!-- start Date -->
+                    <mat-form-field class="p-3 w-50" appearance="outline">
+                        <mat-label>Select Start Date</mat-label>
+                        <input readonly="true"  matInput  type="text" name="voucherDate" [(ngModel)]="startDate"
+                        [matDatepicker]="date">
+                        <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+                        <mat-datepicker #date></mat-datepicker>
+                    </mat-form-field>
+        
+        
+                    <mat-form-field appearance="outline" class="p-3 w-50">
+                        <mat-label>Enter Rent Payment Date</mat-label>
+                        <input matInput id="paymentDate" [(ngModel)]="paymentDate" min="1" max="31" type="number">
+                    </mat-form-field>
+        
+        
+        
+                   
+                    <mat-form-field appearance="outline" class="p-3 w-50">
+                        <mat-label>CAM Charges</mat-label>
+                        <input matInput id="camCharges" (change)="onCamChange()" [(ngModel)]="camCharges" min="0"  type="number">
+                    </mat-form-field>
+        
+                    <mat-form-field appearance="outline" class="p-3 w-50">
+                        <mat-label>Rent Charges</mat-label>
+                        <input matInput id="rentCharges" (change)="onRentChange()" [(ngModel)]="rentCharges" min="0" type="number">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="p-3 w-50" >
+                        <mat-label>CAM Total</mat-label>
+                        <input matInput id="camCharges" [readonly]="true"  [(ngModel)]="camTotal" min="0"  type="number">
+                    </mat-form-field>
+        
+                    <mat-form-field appearance="outline" class="p-3 w-50">
+                        <mat-label>Rent Total</mat-label> 
+                        <input matInput id="rentCharges"  [readonly]="true" [(ngModel)]="rentTotal" min="0" type="number">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="p-3 w-50">
+                        <mat-label>Area</mat-label> 
+                        <input matInput id="rentCharges"  readonly="true" [(ngModel)]="shopArea" min="0" type="number">
+                    </mat-form-field>
+
+                    <div class="text-center">
+                        <button class=" btn-transpatent text-primary" (click)="showServicesForm = true" [hidden]="showServicesForm == true"><mat-icon class="pt-1">keyboard_arrow_down</mat-icon>Add Services</button>
+        
+                        <button class=" btn-transpatent text-danger" (click)="showServicesForm = false ; ServicesData = ''" [hidden]="showServicesForm == false" ><mat-icon class="pt-1">keyboard_arrow_up</mat-icon>Hide Services</button>
+                    </div>
+                </div>
+        
+
+
+
+                <!------------------------     Serviced Adding Form ---------------------->
+
+            <div class=" border-top p-3 bg-white border" *ngIf="showServicesForm">
+              <div>
+                <mat-form-field appearance="outline" class="col-md-3 p-3">
+                    <mat-label>Select Service Title</mat-label>
+                    <mat-select id="service" (selectionChange)="onServiceIDChange()" [(ngModel)]="serviceID">
+                        <mat-option *ngFor="let item of servicesList" [value]="item.serviceID">{{item.serviceTitle}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-md-2">
+                    <mat-label>Service Charges</mat-label>
+                    <input matInput id="serviceCharges" [(ngModel)]="serviceCharges" min="1" type="number">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="p-3 w-25">
+                    <mat-label>Service Type</mat-label>
+                    <mat-select id="serviceType" [(ngModel)]="serviceType">
+                        <mat-option [value]="'Temporary'">Temporary</mat-option>
+                        <mat-option [value]="'Permanent'">Permanent</mat-option>
+                    </mat-select>
+                </mat-form-field>
+        
+                <mat-form-field class="p-3 w-25" appearance="outline">
+                    <mat-label>Select End Date</mat-label>
+                    <input readonly="true" matInput type="text"  name="voucherDate" [(ngModel)]="serviceMonth"
+                    [matDatepicker]="servicemonth">
+                      
+                    <mat-datepicker-toggle matSuffix [for]="servicemonth"></mat-datepicker-toggle>
+                    <mat-datepicker #servicemonth></mat-datepicker>
+                </mat-form-field>
+        
+                <span class="h6 text-success">
+                    <button class="btn btn-primary" [ariaLabel]="'Save Service'" (click)="addService()"><mat-icon >save</mat-icon></button>
+                </span>
+              </div>
+        
+              <div>
+                <table class="table table-hover">
+                    <thead>
+                       <tr> 
+                        <th>S.NO</th>
+                        <th>Service Title</th>
+                        <th>Service Charges</th>
+                        <th>Type</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of ServicesData;index as index">
+                            <td>{{index+1}}</td>
+                            <td>{{item.ServiceTitle}}</td>
+                            <td>{{item.ServiceCharges}}</td>
+                            <td>{{item.ServiceType}}</td>
+                            <td>{{item.TmpServiceMonth |date}}</td>
+                            <td><mat-icon >delete</mat-icon></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                  
+              </div>
+               
+        
+        
+            </div>
+
+            <!----------------------------      Save And Reset Button Section  ------------------>
+
+            <div class="text-center mt-3">
+                <button class="btn btn-success me-2 w-25" (click)="saveMapShop()">Save</button>
+                <button class="btn btn-danger w-25"(click)="reset()">Reset</button>
+            </div>
+        </div>
+    </mat-tab>
+
+    <!-----------------         Saved Record TAb -------------------------->
+    <mat-tab label="Saved Record" class="h-100">
+
+
+
+        <div class="container">
+
+                <mat-form-field appearance="outline" class="w-100 pt-2">
+                    <input type="text" matInput [(ngModel)]="txtSearch">
+                    <mat-icon matPrefix>search</mat-icon>
+                </mat-form-field>
+            <table class="table table-hover text-center">
+                <thead>
+                   <tr>
+                    <th class="col-lg-1">S.NO</th>
+                    <th class="col-lg-1">Shop Title</th>
+                    <th class="col-lg-1">Area</th>
+                    <th class="text-start">Customer Name</th>
+                    <th class="col-lg-1">Payment Date</th>
+                    <th class="col-lg-2">CAM</th>
+                    <th class="col-lg-2">Rent</th>
+                    <th class="col-lg-1">Start Date</th>
+                    <th class="col-lg-1" >Add Service</th>
+                    <th class="col-lg-1">UnMap</th>
+                   </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of mappedShopData | filter:txtSearch;index as index">
+                        <td>{{index+1}}</td>
+                        <td>{{item.shopTitle}}</td>
+                        <td>{{item.shopAreaSQ}}(Sqf.)</td>
+                        <td class="text-start">{{item.partyName}}</td>
+                        <td>{{item.rentPaymentDate}}</td>
+                        <td>{{item.camCharges}} x {{item.shopAreaSQ}} = <b>{{item.camCharges * item.shopAreaSQ |number}}</b> </td>
+                        <td>{{item.rentCharges}} x {{item.shopAreaSQ}} =<b>{{item.rentCharges * item.shopAreaSQ |number}}</b> </td>
+                        <td>{{item.startDate |date:'yyyy-MM-dd'}}</td>
+                        <td><mat-icon class="text-success cursorPointer" (click)="addNewShopService(item)">edit</mat-icon></td>
+                       
+                        <td ><mat-icon class="text-danger cursorPointer " (click)="UnMapShop(item)" >delete</mat-icon></td>
+                    </tr>
+                </tbody>
+            </table>
+          
+        </div>
+    </mat-tab>
+</mat-tab-group>
+

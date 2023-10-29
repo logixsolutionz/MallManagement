@@ -1,0 +1,186 @@
+<mat-tab-group mat-stretch-tabs="true" mat-align-tabs="center" [selectedIndex]="tabIndex" (selectedTabChange)="tabIndex = ''">
+    <mat-tab label="Sale Page" class="h-100" >
+
+        <div class="h-100 col-lg-12 p-2 container-fluid d-flex" >
+            <div class="col-lg-8 m-1 " >
+                <div >
+                    <mat-card class="d-flex mb-4 p-3">
+                    
+                    
+                        <div class="d-flex justify-content-between">
+        
+                           
+                            <div class="w-50  d-flex flex-column">
+                                <input type="text" matInput  name="searchProduct" id="searchProduct" class="w-75 h-75 p-1 mb-2 border border-bottom rounded" (change)="EnterData($event)" [(ngModel)]="PBarcode" placeholder="Search Barcode / Name" autofocus> 
+                            
+                            <!-- <mat-form-field  *ngIf="PBarcode != '' && PBarcode != undefined">
+                                <mat-select>
+                                    <mat-option *ngFor="let item of productsData | filter:PBarcode ">{{item.productName}}</mat-option>
+                                </mat-select>
+                            </mat-form-field> -->
+                            <div class="w-100 d-flex flex-column SearchConatiner cursorPointer" *ngIf="PBarcode != '' && PBarcode != undefined">   
+                               <mat-card>
+                                <a  *ngFor="let item of productsData| filter:PBarcode " (click)="holdDatafunc(item)" >{{item.productName}} ( <b>{{item.pBarcode}}</b> )</a>
+                            </mat-card>
+                            </div>
+                            </div>
+                    
+        
+                        <div>
+                            <mat-form-field appearance="outline" class="me-1">
+                                <mat-label>Select Party</mat-label>
+                                <mat-select [(ngModel)]="myPartyID" name="customer">
+                                    <mat-option *ngFor="let item of customersList" [value]="item.partyID">{{item.partyName}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <button class=" btn btn-success h-75"><mat-icon class="pt-1">assignment_return</mat-icon>Sale Return</button>
+                        </div>
+                        </div>
+                   
+                    
+                    
+                </mat-card>
+                </div>
+                <div class="h-75" >
+
+
+                    <!-- ============================== table Area =================== -->
+                    <mat-card class="border rounded ">
+                       
+                        <table class="table h-100 salePage"  id="salePage">
+                            <thead style="background-color: rgb(209, 240, 163);height: 40px;" class="text-center " >
+                                <th>S#</th>
+                                <th>Product Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th>Action</th>
+                               
+                            </thead>
+        
+                            <tbody style="height: 30px;" class="text-center">
+                                <tr *ngFor="let item of holdData index as index">
+                                    <td>{{index+1}}</td>
+                                    <td>{{item.productName}}</td>
+                                    <td>{{item.salePrice}}</td>
+                                    <td><input type="number" [(ngModel)]="item.quantity" min="0" class="text-center w-25" (change)="onQtyChange(item)" id="pQty"></td>
+                                    <!-- <td>{{item.total}}</td> -->
+                                    <td>{{item.salePrice * item.quantity}}</td>
+                                    <td><mat-icon class="text-secondary" (click)="delRow(item)">close</mat-icon></td>
+                                </tr>
+                              
+                                
+                                <tr *ngIf="holdData != ''">
+                                    <td colspan="3">Total</td>
+                                    <td>{{myTotalQty}}</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                  
+            </mat-card>
+                </div>
+            </div>
+
+
+
+            <!-- /////////////////// Payment Section and Total Seciton/////////////// -->
+            <div class="h-100 col-lg-3 m-1"  >
+                <mat-card class="p-4" style="position:fixed; ">
+                   <mat-card class="mb-2" >
+                    <div class="p-2 pt-3 ">
+                        <p class="text-secondary">SubTotal</p>
+                        <h1 style="font-size: 70px;" class="text-center text-danger">{{mySubtoatal}}</h1>
+                    <!-- <input type="number"  class="w-50  border-0 border-bottom fontroboto text-end h-70" [(ngModel)]="mySubtoatal" readonly> -->
+                    </div>
+                  </mat-card>
+                  <mat-card class="mb-2">
+                    <div class="p-2 pt-3 d-flex justify-content-between">
+                        <h2 class="text-secondary">Discount</h2>
+                    <input type="number"  class="numOnly w-50 border-0 border-bottom text-end h-70" [(ngModel)]="myDiscount" (keyup)="getTotal()">
+                    </div>
+                  </mat-card>
+                  <mat-card class="mb-2">
+                    <div class="p-2 pt-3 d-flex justify-content-between">
+                        <h2 class="text-secondary" >Total</h2>
+                        <h1 class="text-secondary">{{myTotal}}</h1>
+                    <!-- <input type="number"  class="numOnly w-50 border-0 border-bottom text-end h-70" [(ngModel)]="myTotal" readonly> -->
+                    </div>
+                  </mat-card>
+                  <div class="d-flex justify-content-between text-secondary">
+                    <mat-card class="mb-2 me-1">
+                        <div class="p-2  pt-3 d-flex justify-content-between">
+                            <h2 class="text-secondary ">Paid</h2>
+                        <input type="number"  class="numOnly w-50 border-0 border-bottom text-end h-70" [(ngModel)]="myPaid" (keyup)="getTotal()">
+                        </div>
+                      </mat-card>
+                      <mat-card class="mb-2 ">
+                        <div class="p-2 pt-3 d-flex justify-content-between">
+                            <h2 class="text-danger display-2">Due</h2>
+                        <input type="number"   class="numOnly w-50 border-0 border-bottom text-end h-70" [(ngModel)]="myDue" readonly>
+                        </div>
+                      </mat-card>
+                </div> 
+        
+        
+                    <h5 class="border-bottom text-secondary ">Add Payment</h5>
+        
+                    <button class="btn btn-success w-50 m-1" (click)="CashSale()"><mat-icon class="pt-1">attach_money</mat-icon> {{btnType}}</button>
+                    <button class="btn btn-success w-50 m-1"><mat-icon class="pt-1">credit_card</mat-icon> Credit Card</button>
+                    <div class="mt-5 text-start">
+                        <button class="btn btn-danger w-50 m-1" (click)="reset()"><mat-icon class="pt-1">refresh</mat-icon> Clear</button>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+
+    </mat-tab>
+
+
+      <!-- ====================================Saved Record=============================== -->
+    <mat-tab label="Saved Record" class="h-100">
+
+        <div class="border-top mt-2">
+            <div class="container ">
+                <mat-form-field class="w-100 mt-2" appearance="outline">
+                    <mat-label>Search.......</mat-label>
+                    <input matInput [(ngModel)]="searchtxt" type="text" name="searchInv">
+                </mat-form-field>
+            </div>
+            <div class="container">
+
+                <table class="table table-hover">
+                    <thead>
+                        <th>S#</th>
+                        <th>Invoice No</th>
+                        <th>Invoice Date</th>
+                        <th> Amount</th>
+                        <th>Party</th>
+                        <th> Action</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of Invoices    | filter:searchtxt ; index as index">
+                            <td>{{index + 1}}</td>
+                            <td>{{item.invoiceNo}}</td>
+                            <td>{{item.invoiceDate | date  }}</td>
+                            <td>{{item.credit}}</td>
+                            <td>{{item.partyName}}</td>
+                            <td class="cursorPointer">
+                                <mat-icon class="text-success" (click)="editInvoice(item)">edit</mat-icon>
+                                <mat-icon class="text-dark">print</mat-icon>
+                                
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </mat-tab>
+</mat-tab-group>
+
+
+
+

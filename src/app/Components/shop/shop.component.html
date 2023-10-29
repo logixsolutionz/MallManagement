@@ -1,0 +1,45 @@
+<div class="bg-white p-5">
+    
+    <div class="text-center p-5 bg-light  pt-5">
+        <div class="text-start d-flex ">
+            <button autofocus class="btn btn-primary me-2 col-lg-2" style="height: 55px;" (click)="OpenDialogue()"><mat-icon class="pt-1">
+            add</mat-icon>ADD Shop</button>
+            <mat-form-field class="col-lg-10" appearance="outline">
+                <mat-label>Search</mat-label>
+                <input [(ngModel)]="searchtxt" matInput type="search" class="text-secondary">
+                <mat-icon matPrefix class="text-secondary">search</mat-icon>
+            </mat-form-field>
+        </div>
+            <br>
+        <table class="table table-hover h-100"> 
+            <thead>
+                <th>S#</th>
+                <th>Shop Title</th>
+                <th>Shop Code</th>
+                <th class="text-start"> Owner Name</th>
+                <th class="text-start">Purchase Date</th>
+                <th>Area</th>
+                <th>CAM </th>
+                <th>Rent </th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </thead>
+            <tbody >
+                <tr *ngFor="let item of shopData |filter:searchtxt;index as index">
+                    <td>{{index+1}}</td>
+                    <td>{{item.shopTitle}}</td>
+                    <td>{{item.shopCode}}</td>
+                    <td  class="text-start">{{item.partyName}}</td>
+                    <td class="text-start">{{item.purchaseDate | date}}</td>
+                    <td>{{item.shopAreaSQ}} (Sqf.)</td>
+                    <td>{{item.camCharges}} x {{item.shopAreaSQ}} =<b>{{item.camCharges*item.shopAreaSQ |number}}</b> </td>
+                    <td>{{item.rentCharges}}  x {{item.shopAreaSQ}} = <b>{{item.rentCharges*item.shopAreaSQ |number}}</b> </td>
+                    <td><mat-icon class="text-success cursorPointer" (click)="editShop(item)" >edit</mat-icon></td>
+                    <td><mat-icon class="text-danger cursorPointer"  (click)="deleteShop(item)">delete</mat-icon></td>
+                </tr>
+            </tbody>
+        </table>
+    
+    </div>
+
+</div>

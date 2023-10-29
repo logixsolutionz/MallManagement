@@ -1,0 +1,32 @@
+<div class="bg-white p-5">
+    
+    <div class="text-center border w-50  bg-light container-fluid pt-5">
+        <div class="text-end " ><button style="background: transparent;border: none;" class=" border-bottom" (click)="OpenDialogue()"><mat-icon class="pt-1">
+            add</mat-icon>  ADD Services</button></div>
+            <br>
+        <table class="table table-hover h-100"> 
+            <thead>
+                <th>S#</th>
+                <th>Service Title</th>
+                <th>Service Charges</th>
+                <th>Code</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </thead>
+            <tbody >
+                <tr *ngFor="let item of servicesData;index as index" >
+                    <td>{{index+1}}</td>
+                    <td>{{item.serviceTitle}}</td>
+                    <td>{{item.serviceCharges}}</td>
+                    <td>{{item.serviceCode}}</td>
+                    <td><mat-icon class="text-success cursorPointer" (click)="editService(item)" >edit</mat-icon></td>
+                    <td><mat-icon class="text-danger cursorPointer" (click)="deleteService(item)" >delete</mat-icon></td>
+                </tr>
+            </tbody>
+        </table>
+    
+    </div>
+
+</div>
+
+

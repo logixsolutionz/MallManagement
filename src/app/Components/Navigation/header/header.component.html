@@ -1,0 +1,38 @@
+<mat-toolbar  class="bg-grey">  
+    <mat-toolbar-row class="justify-content-between d-flex border-bottom">
+       <div style="display: flex;" class="justify-content-left"> 
+        <!-- <button class="button" mat-icon-button (click)="toggleSideBar()"><mat-icon>{{Menu}}</mat-icon> </button> -->
+        
+        <img src="../../../../assets/Images/logo-logix.png" height="25" width="120" class="mt-3">
+        
+        <h4 class="m-3 text-muted" style="font-family: Arial, Helvetica, sans-serif;letter-spacing:5px;">
+            {{title}}
+        </h4>
+        
+        <!-- <h1 class="title">Logix solution</h1> -->
+    </div>
+    <div class="d-flex pt-3">
+        <h3>Welcome Mr.  <mat-icon class="pt-1" >person</mat-icon> {{UserName}}</h3>
+    </div>
+    
+        <div class="justify-content-around">
+            <ul class="d-flex pt-3 ml stylnone">
+                <!-- <li >
+                    <h3>{{UserName}}</h3>  <mat-icon >person</mat-icon> 
+                </li> -->
+                <li >
+                    
+                    <div mat-icon-button style="cursor: pointer;font-size: 15px; border-bottom: 1px Solid rgb(196, 196, 196);box-shadow: 12px 2px 5px 2px rgb(198, 198, 199);" class="d-flex" (click)="logout()">
+
+                        LOGOUT <mat-icon  class="">power_settings_new</mat-icon>
+                    </div>
+                </li>
+                
+            </ul>  
+        </div>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+        <app-top-navbar></app-top-navbar>
+    </mat-toolbar-row>
+</mat-toolbar>
+

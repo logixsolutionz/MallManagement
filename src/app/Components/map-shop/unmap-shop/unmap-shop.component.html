@@ -1,0 +1,19 @@
+<div class=" p-2 ">
+    <h1 class="dialogueTitle">UnMap Shop</h1>
+    
+    <mat-form-field class="p-3 " appearance="outline">
+        <mat-label>Select End Date</mat-label>
+        <input readonly="true"  matInput type="text" name="voucherDate" [(ngModel)]="EndDate"
+        [matDatepicker]="date">
+        <mat-hint>Select The End Date of UnMap</mat-hint>
+          
+        <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+        <mat-datepicker #date></mat-datepicker>
+    </mat-form-field>
+    
+     
+
+    <button class="btn btn-danger" (click)="unMapShop()">UnMap Shop</button>
+
+  </div>
+

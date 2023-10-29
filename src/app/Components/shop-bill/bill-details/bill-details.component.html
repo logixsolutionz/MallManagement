@@ -1,0 +1,39 @@
+<div class="container p-5">
+    <div class="d-flex justify-content-between">
+        <h2 class="dialogueTitle">Bill Details</h2>
+        <p><mat-icon class="cursorPointer" (click)="closeDialogue()">close</mat-icon></p>
+    </div>
+    <div>
+        <table class="w-100 table">
+            <thead >
+                <tr >
+    
+                    <th>S#</th>
+                    <th>Description</th>
+                    <th>Charges</th>
+    
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of tableData;index as index" >
+    
+                    <td>{{index+1}}</td>
+                    <td>{{item.title}}</td>
+                    <td>{{item.charges|number}}</td>
+    
+                    
+                </tr>
+    
+                
+              
+                <tr>
+                    <td ></td>
+                    <td ><b>Total</b></td>
+                    <td><b>{{TotalCharges|number}}</b></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+ 
+</div>

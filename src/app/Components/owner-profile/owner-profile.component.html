@@ -1,0 +1,123 @@
+<div class="d-flex container-fluid border-top mt-2 h-100  bg-light">
+
+
+    <!-- Left Side of the page  -->
+    <div class="col-lg-6 mt-2 border-end "  >
+        <div class="border-bottom">
+            <h2>Owner Credentials</h2>
+        </div>
+        <div class=" m-3" >
+            <div class="justify-content-around col-lg-12  mt-1">
+
+
+               
+                <mat-form-field class="col-md-5 me-5" appearance="outline">
+                    <mat-label>Name</mat-label>
+                    <input [(ngModel)]="ownerName" name="UEmail" matInput type="text">
+                    
+                </mat-form-field>
+            
+
+
+                <mat-form-field class="col-md-5" appearance="outline">
+                    <mat-label>CNIC</mat-label>
+                    <input [(ngModel)]="cnic" (keyup)="setCnicData()" maxlength="15"  name="uName" matInput type="text">
+                   
+                </mat-form-field>
+                <mat-form-field class="col-md-5 me-5" appearance="outline">
+                    <mat-label>City Name</mat-label>
+                    <mat-select [(ngModel)]="CityID"  name="uName" matInput type="text">
+                        <mat-option *ngFor="let item of citiesData" [value]="item.cityID">{{item.cityName}}</mat-option>
+                    </mat-select>
+                    
+                </mat-form-field>
+           
+                <mat-form-field class="col-md-5" appearance="outline">
+                    <mat-label>Mobile No</mat-label>
+                    <input [(ngModel)]="mobileNo" (keyup)="mobileNoFormate()" maxlength="12" name="uPassword" matInput type="text">
+                    
+                </mat-form-field>
+                <mat-form-field class="col-lg-5 me-5" appearance="outline">
+                    <mat-label>Bank Name</mat-label>
+                    <input [(ngModel)]="bankName"  matInput type="text">
+                </mat-form-field>
+                <mat-form-field class="col-md-5 me-5" appearance="outline">
+                    <mat-label>Bank Account Title</mat-label>
+                    <input [(ngModel)]="accountTitle" matInput type="text">
+                    
+                </mat-form-field>
+                
+
+            
+
+                <mat-form-field class="col-md-5 me-5" appearance="outline">
+                    <mat-label>Bank Account No.</mat-label>
+                    <input  matInput [(ngModel)]="accountNo" type="text">
+                    
+                </mat-form-field>
+
+
+                <mat-form-field class="col-md-5 me-5" appearance="outline">
+                    <mat-label>Address</mat-label>
+                    <textarea matInput [(ngModel)]="address"  type="text"></textarea>
+                    
+                </mat-form-field>
+                
+            
+               
+                <mat-form-field class="col-md-5" appearance="outline">
+                    <mat-label>Description</mat-label>
+                    <textarea  matInput [(ngModel)]="description" type="text"></textarea>
+                    
+                </mat-form-field>
+            </div>
+
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <Button class="btn btn-success m-2 w-25 h-25"   accesskey="s" (click)="addOwner()" ><mat-icon class="pt-1" >save</mat-icon>{{btntype}}</Button>
+            <Button class="btn btn-danger m-2 w-25 h-25" (click)="reset()"><mat-icon class="pt-1" >cached</mat-icon>Reset</Button>
+        </div>
+    </div>
+
+
+    <!-- Saved Record Side of the page  -->
+    <div class="mt-2 col-lg-6 border-start h-100" style="overflow: scroll;">
+        <div class="border-bottom ">
+            <h2 style="margin-left:10px;">Saved Record </h2>
+        </div>
+       
+        <mat-form-field class="col-md-11 m-3" appearance="outline">
+            <mat-label>Search</mat-label>
+            <input [(ngModel)]="txtSearch" matInput type="search" class="text-secondary">
+            <mat-icon matPrefix class="text-secondary">search</mat-icon>
+        </mat-form-field>
+        <div class="m-3 h-100">
+           
+            <table class="table justify-content-center" >
+                <thead class="">
+                    <th>S#</th>
+                    <th>Name</th>
+                    <th>CNIC</th>
+                    <!-- <th class="col-md-2">Address</th> -->
+                    <th>City</th>
+                    <th>Mobile</th>
+                    <th >Action</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of ownerData | filter:txtSearch;index as index" >
+                        <td>{{index+1}}</td>
+                        <td>{{item.partyName}}</td>
+                        <td>{{item.partyCNIC}}</td>
+                        <!-- <td>{{item.partyAddress}}</td> -->
+                        <td>{{item.cityName}}</td>
+                        <td>{{item.partyMobileNo}}</td>
+                        
+                        <td><mat-icon class="text-success cursorPointer "  (click)="editOwner(item)" >edit</mat-icon>
+                            <mat-icon class="text-danger cursorPointer" (click)="deleteOwner(item)">delete</mat-icon></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

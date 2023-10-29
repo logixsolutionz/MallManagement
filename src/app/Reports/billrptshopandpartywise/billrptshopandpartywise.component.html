@@ -1,0 +1,119 @@
+<div>
+    <div class="container p-3 border-bottom">
+
+         <!----------------           Date Section ------------------------------->
+         <div class="row ">
+                    
+            <mat-form-field class="w-25">
+                <mat-label>Select Shop </mat-label>
+                <mat-select [(ngModel)]="shopID">
+                    <mat-option><ngx-mat-select-search [(ngModel)]="shopSearch"
+                        [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'"
+                        name="search"></ngx-mat-select-search></mat-option>
+                    <mat-option *ngFor="let item of shopList | filter:shopSearch; " [value]="item.shopID">{{item.shopTitle}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="w-25">
+                <mat-label>Select Party </mat-label>
+                <mat-select [(ngModel)]="partyID">
+                    <mat-option><ngx-mat-select-search [(ngModel)]="customerSearch"
+                        [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'"
+                        name="search"></ngx-mat-select-search></mat-option>
+                    <mat-option *ngFor="let item of partyList | filter:customerSearch; " [value]="item.partyID">{{item.partyName}}- ({{item.partyCNIC}})</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="w-25 ">
+                <mat-label>From Date</mat-label>
+                <input matInput type="text"  readonly="true" [(ngModel)]="fromDate" [matDatepicker]="sDate">
+                <mat-datepicker-toggle matSuffix [for]="sDate"></mat-datepicker-toggle>
+                <mat-datepicker #sDate></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="w-25">
+                <mat-label>To Date</mat-label>
+                <input matInput type="text" readonly="true" [(ngModel)]="toDate"  [matDatepicker]="eDate">
+                <mat-datepicker-toggle matSuffix [for]="eDate"></mat-datepicker-toggle>
+                <mat-datepicker #eDate></mat-datepicker>
+            </mat-form-field>
+        
+
+       
+    </div>
+    <div class=" mt-4 text-center ">
+        <button class="btn btn-primary fw-bold me-4 btn-rpt" (click)="getReportShopandPartyWise()">
+            Get Rpt
+        </button>   
+    
+        <button class=" btn btn-primary fw-bold btn-rpt" (click)="PrintTable()">
+            Print
+        </button>
+    </div>
+
+    </div>
+
+
+    <!---------------------     table Area ---------------->
+
+    <div class="container" id="printRpt">
+
+        <div class="hide">
+            <div class="text-center border-bottom d-flex justify-content-between">
+                <span>
+                    <img src="{{logo}}" style="color: black;" alt="" srcset="" height="150"
+                        width="150">
+                </span>
+                <span class="mt-3">
+                    
+    
+                    <h1 class="cmpnyName">{{companyName}}</h1>
+                    <h5 style="margin-top: -15px;" class="text-end">{{companyName2}}</h5>
+    
+                    <h1 class="rptTitle">Shop Bill Report</h1>
+                    <h4 style="margin-top:-5px"><b>From:</b> {{fromDate | date:'yyyy-MM-dd'}} <b>To:</b> {{toDate | date:'yyyy-MM-dd'}}</h4>
+                  
+                </span>
+                <span>
+                    <img src="{{logo1}}" style="color: black;" alt="" srcset="" height="150"
+                        width="150">
+                </span>
+        
+        
+            </div>
+           </div>
+
+        <table class="table">
+            <thead class="border-bottom">
+                <th>S#</th>
+                <th>Bill No</th>
+                <th>Date</th>
+                <th>Shop Title</th>
+                <th>Party Name</th>
+                <th>Area</th>
+                <th>CAM</th>
+                <th>Rent</th>
+                <th>Amount</th>
+                
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let item of ReportData;index as index">
+                    <td>{{index+1}}</td>
+                    <td class="cursorPointer text-primary" (click)="getBillDetails(item.billNo)"><span class="border-bottom border-primary">{{item.billNo}}</span></td>
+                    <td>{{item.billDate |date:'yyyy-MM-dd'}}</td>
+                    <td>{{item.shopTitle}}</td>
+                    <td>{{item.partyName}}</td>
+                    <td>{{item.shopAreaSQ}}</td>
+                    <td>{{item.camCharges}} x {{item.shopAreaSQ}} = <b>{{item.camCharges * item.shopAreaSQ |number}}</b></td>
+                    <td>{{item.rentCharges}} x {{item.shopAreaSQ}} = <b>{{item.rentCharges * item.shopAreaSQ |number}}</b></td>
+                    <td>{{item.charges |number}}</td>
+                </tr>
+
+                <tr *ngIf="ReportData == ''" class="text-center">
+                    <th colspan="8">No Data Found!</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

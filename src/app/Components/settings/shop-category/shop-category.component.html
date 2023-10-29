@@ -1,0 +1,31 @@
+<div class="bg-white p-5">
+    
+    <div class="text-center border w-50  bg-light container-fluid pt-5">
+        <div class="text-end " >
+           <div>
+            <button style="background: transparent;border: none;" class=" border-bottom" accesskey="n" (click)="OpenDialogue()"><mat-icon class="pt-1">
+                add</mat-icon>  ADD Shop Category</button>
+           </div>
+            <mat-hint class="text-secondary me-5">(Alt + N)</mat-hint>
+        </div>
+            
+            <br>
+        <table class="table table-hover h-100"> 
+            <thead>
+                <th>S#</th>
+                <th>Shop Category Name</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </thead>
+            <tbody >
+                <tr *ngFor="let item of CategoriesData ; index as index">
+                    <td>{{index+1}}</td>
+                    <td>{{item.shopCategoryName}}</td>
+                    <td><mat-icon class="text-success cursorPointer" (click)="editCategory(item)">edit</mat-icon></td>
+                    <td><mat-icon class="text-danger cursorPointer"  (click)="DeleteCategory(item)">delete</mat-icon></td>
+                </tr>
+            </tbody>
+        </table>
+    
+    </div>
+

@@ -1,0 +1,66 @@
+
+
+<div class="p-3">
+
+    <div class=" mt-3 d-flex justify-content-between p-3">
+        <p class="dialogueTitle">ADD Shop DETAILS</p><mat-icon class="cursorPointer" (click)="closeDialogue()">cancel</mat-icon>
+    </div>
+
+    <div class="col-lg-12 container-fluid">
+    
+        <mat-form-field class="col-lg-5 me-5" appearance="outline">
+            <mat-label>Shop Title</mat-label>
+            <input matInput type="text" [(ngModel)]="shopTitle">
+        </mat-form-field>
+        <mat-form-field class="col-lg-5 " appearance="outline">
+            <mat-label>Shop Code</mat-label>
+            <input matInput type="number" min="0" [(ngModel)]="shopCode">
+        </mat-form-field>
+        <mat-form-field class="col-lg-5 me-5" appearance="outline">
+            <mat-label>Area</mat-label>
+            <input matInput type="number" min="0" [(ngModel)]="shopArea">
+        </mat-form-field>
+        <mat-form-field class=" col-lg-5 " appearance="outline">
+            <mat-label>Cam Title</mat-label>
+            <mat-select [(ngModel)]="camID">
+                <mat-option *ngFor="let item of CamData" [value]="item.camID">{{item.camTitle}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class=" col-lg-5 me-5" appearance="outline">
+            <mat-label>Rent Title</mat-label>
+            <mat-select [(ngModel)]="rentID">
+                <mat-option *ngFor="let item of rentData" [value]="item.rentID">{{item.rentTitle}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="col-lg-5 " appearance="outline">
+            <mat-label>Owner Name</mat-label>
+            <mat-select [(ngModel)]="partyID">
+                <mat-option><ngx-mat-select-search [(ngModel)]="partySearch"
+                    [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'"
+                    name="search"></ngx-mat-select-search></mat-option>
+                <mat-option *ngFor="let item of ownerData | filter:partySearch" [value]="item.partyID">{{item.partyName}}  - ({{item.partyCNIC}})</mat-option>
+                
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="col-lg-5 me-5" appearance="outline"> 
+            <mat-label>Purchase Date</mat-label>
+            <input readonly="true" matInput  
+                [(ngModel)]="purchaseDate"  [matDatepicker]="picker" >
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="col-lg-5 " appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea matInput type="number" [(ngModel)]="description"></textarea>
+        </mat-form-field>
+
+
+
+    </div>
+    <div class="justify-content-center d-flex"> 
+        <button class="btn btn-success m-1" accesskey="s"  (click)="addShop()"><mat-icon class="pt-1">save</mat-icon>
+            {{actionbtn}} </button>
+        <button class="btn btn-danger m-1 " (click)="reset()"><mat-icon class="pt-1">cached</mat-icon> Reset </button>
+    </div>
+</div>

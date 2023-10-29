@@ -1,0 +1,68 @@
+<div class=" p-2 ">
+   <div class="d-flex justify-content-between">
+    <h1 class="dialogueTitle">Add Services</h1>
+    <mat-icon (click)="closeDialogue()">cancel</mat-icon>
+   </div>
+    <div class="pb-1 border-bottom ">
+      <mat-form-field appearance="outline" class="p-3 col-lg-5">
+          <mat-label>Select Service Title</mat-label>
+          <mat-select id="service" (selectionChange)="onServiceIDChange()"  [(ngModel)]="serviceID">
+              <mat-option *ngFor="let item of servicesList" [value]="item.serviceID">{{item.serviceTitle}}</mat-option>
+          </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="p-3 col-lg-5">
+          <mat-label>Service Charges</mat-label>
+          <input matInput id="serviceCharges" [(ngModel)]="serviceCharges" min="1" type="number">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="p-3 col-lg-5">
+          <mat-label>Service Type</mat-label>
+          <mat-select id="serviceType" [(ngModel)]="serviceType">
+              <mat-option [value]="'Temporary'">Temporary</mat-option>
+              <mat-option [value]="'Permanent'">Permanent</mat-option>
+          </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="p-3 col-lg-5 " appearance="outline">
+          <mat-label>Select Start Date</mat-label>
+          <input  matInput type="text" name="voucherDate" [(ngModel)]="serviceMonth"
+          [matDatepicker]="servicemonth">
+            
+          <mat-datepicker-toggle matSuffix [for]="servicemonth"></mat-datepicker-toggle>
+          <mat-datepicker #servicemonth></mat-datepicker>
+      </mat-form-field>
+
+      <span class="d-flex justify-content-center ">
+          <button class="btn btn-success w-25 me-2"  (click)="SaveShopService()">Save</button>
+          <button class="btn btn-danger w-25"  (click)="reset()">Reset</button>
+      </span>
+    </div>
+
+    <div>
+      <table class="table table-hover">
+          <thead>
+             <tr> 
+              <th>S.NO</th>
+              <th>Service Title</th>
+              <th>Service Charges</th>
+              <th>Type</th>
+              <th>Date</th>
+              <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let item of shopServicesData;index as index">
+                  <td>{{index+1}}</td>
+                  <td>{{item.serviceTitle}}</td>
+                  <td>{{item.serviceCharges}}</td>
+                  <td>{{item.serviceType}}</td>
+                  <td>{{item.tmpServiceMonth |date}}</td>
+                  <td><mat-icon (click)="deleteShopService(item)">delete</mat-icon></td>
+              </tr>
+          </tbody>
+      </table>
+    </div>
+     
+
+
+  </div>
+

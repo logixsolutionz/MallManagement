@@ -1,0 +1,58 @@
+
+
+.hide{
+    display: none;
+}
+
+.table-logix{
+    background-color: #fff; 
+    border: 1px solid black;
+  }
+  
+  .table-logix > thead {
+    border:1px solid black;
+  }
+  
+  /*********** Table Stripped *******/
+  .table-logix > thead > tr{
+    border: 1px solid black;    
+  }
+  .table-logix > thead > tr > th {
+    /*background-color:#D2101B;*/
+    /*color:#fff;*/  
+    font-weight: bold;  
+    text-align: center;
+    border:1px solid black;
+  }
+
+  .table-logix > thead > tr > td {
+    /*background-color:#D2101B;*/
+    /*color:#fff;*/  
+    text-align: left;
+    border:1px solid black;
+  }
+
+  .table-logix > thead > tr > td {
+    /*background-color:#D2101B;*/
+    /*color:#fff;*/  
+    text-align: left;
+    border:1px solid black;
+    width: 100%;
+  }
+
+
+  .table-logix > thead > span > tr > th {
+    /*background-color:#D2101B;*/
+    /*color:#fff;*/  
+    text-align: left;
+    border:1px solid black;
+    width: 100%;
+  }
+  
+  .table-logix > tbody > tr {
+    border: 1px solid #000;
+  }
+  
+  .table-logix > tbody > tr > td {
+    border: 1px solid #000;
+  }

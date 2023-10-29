@@ -1,0 +1,28 @@
+input:focus{
+  
+    outline: none;
+    
+}
+
+.SearchConatiner{
+border: 0px solid rgb(180, 180, 180);
+background-color: rgb(242, 246, 252);
+margin-top: 50px;
+width: 100%;
+z-index:1000;
+position: absolute;
+max-height: 250px;
+overflow-y: scroll;
+
+
+
+ a{
+    padding: 10px;
+    text-decoration: none;
+    color:gray;
+    height: 30px;
+    display: block;
+    border-bottom: 1px solid rgb(174, 174, 174);
+ }
+
+}

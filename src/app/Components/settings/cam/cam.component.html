@@ -1,0 +1,34 @@
+<div class="bg-white p-5">
+    
+    <div class="text-center border w-50  bg-light container-fluid pt-5">
+        <div class="text-end " ><button style="background: transparent;border: none;" class=" border-bottom" (click)="OpenDialogue()"><mat-icon class="pt-1">
+            add</mat-icon>  ADD CAM</button></div>
+            <br>
+        <table class="table table-hover h-100"> 
+            <thead>
+                <th>S#</th>
+                <th>CAM Title</th>
+                <th>Floor Name</th>
+                <th>Category Name</th>
+                <th>CAM Charges</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </thead>
+            <tbody >
+                <tr *ngFor="let item of CAMData;index as index" >
+                    <td>{{index+1}}</td>
+                    <td>{{item.camTitle}}</td>
+                    <!-- <td>{{Floors[item.shopFloorID].shopFloorName}}</td>
+                    <td>{{shopCategorys[item.shopCategoryID].shopCategoryName}}</td> -->
+                    <td>{{item.shopFloorName}}</td>
+                    <td>{{item.shopCategoryName}}</td>
+                    <td>{{item.camCharges}}</td>
+                    <td><mat-icon class="text-success cursorPointer" (click)="editCAM(item)">edit</mat-icon></td>
+                    <td><mat-icon class="text-danger cursorPointer" (click)="deleteCAM(item)" >delete</mat-icon></td>
+                </tr>
+            </tbody>
+        </table>
+    
+    </div>
+
+</div>

@@ -1,0 +1,27 @@
+<div class="bg-white p-5">
+    
+    <div class="text-center border w-50  bg-light container-fluid pt-5">
+        <div class="text-end " ><button style="background: transparent;border: none;" class=" border-bottom" (click)="OpenDialogue()"><mat-icon class="pt-1">
+            location_city</mat-icon>  ADD NEW City</button></div>
+            <br>
+        <table class="table table-hover h-100"> 
+            <thead>
+                <th>S#</th>
+                <th>City Name</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </thead>
+            <tbody >
+                <tr *ngFor="let item of citiesData index as index">
+                    <td>{{index+1}}</td>
+                    <td>{{item.cityName}}</td>
+                    <td><mat-icon class="text-success cursorPointer" (click)="updateCity(item)">edit</mat-icon></td>
+                    <td><mat-icon class="text-danger cursorPointer" (click)="deleteCity(item)">delete</mat-icon></td>
+                </tr>
+            </tbody>
+        </table>
+    
+    </div>
+
+</div>
+

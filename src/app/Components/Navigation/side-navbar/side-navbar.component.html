@@ -1,0 +1,63 @@
+<mat-nav-list class="h-100">
+    <div class="navHeader text-center text-white pt-4 m-2">
+        <h1><mat-icon class="pt-1">format_list_bulleted</mat-icon>  MENU ITEM</h1>
+    </div>
+    <mat-divider ></mat-divider>
+    <div class="py-2 d-flex flex-column nav">
+
+
+        <!-- =================================Finance and Accounts arear below here ======================================= -->
+        <a class="list-item cursorPointer" (click)="collapseAccounts()"  routerLinkActive="list-item-active"><mat-icon class="sideicon">account_balance_wallet</mat-icon>
+            Account & Finance<mat-icon class="sideicon pt-1">{{accountsDropDownIcon}}</mat-icon></a>
+
+            <!-- ==============div will expand on Above link  click ========================== -->
+        <div  *ngIf="ExpandAccounts" class="m-1 p-1 d-flex flex-column rounded  ">
+            <a class="list-item" routerLink="./dashBoard" routerLinkActive="list-item-active"><mat-icon class="sideicon">dashboard</mat-icon>
+                DashBoard</a>
+            <a class="list-item" routerLink="./coa" routerLinkActive="list-item-active"><mat-icon class="sideicon">bubble_chart</mat-icon>
+                Charts of Accounts</a>
+            <a class="list-item" routerLink="./voucher" routerLinkActive="list-item-active"><mat-icon class="sideicon">receipt</mat-icon>
+                Voucher</a>
+            <a class="list-item cursor text-left" routerLinkActive="list-item-active" (click)="collapseReports()" ><mat-icon class="sideicon">assignment</mat-icon>
+                Reports<mat-icon class="sideicon pt-1">{{reporticon}}</mat-icon></a>
+    
+                <div *ngIf="Expanded" class="m-1 p-1 d-flex flex-column rounded  " style="background-color: rgba(32, 32, 32, 0.736);">
+                    <a class="list-item " routerLink="./ldgrpt" routerLinkActive="list-item-active">Ledger</a>
+                    <a class="list-item" routerLink="./tbrpt" routerLinkActive="list-item-active">Trial Balance</a>
+                    <a class="list-item" routerLink="./plrpt" routerLinkActive="list-item-active">Profit & Loss Statement</a>
+                    <a class="list-item" routerLink="./bsrpt" routerLinkActive="list-item-active">Balance Sheet</a>
+                </div>
+        </div>
+
+        <!-- =========================the POINT of Sale Area Below here========================== -->
+        <a class="list-item cursorPointer" (click)="collapsePOS()"  routerLinkActive="list-item-active"><mat-icon class="sideicon">shop_two</mat-icon>
+            Point Of Sale <mat-icon class="sideicon pt-1">{{POSDropDownIcon}}</mat-icon></a>
+
+           <div *ngIf="ExpandPOS" class="m-1 p-1 d-flex flex-column rounded  ">
+            <a class="list-item" routerLink="./sale" routerLinkActive="list-item-active"><mat-icon class="sideicon">add_shopping_cart</mat-icon>
+                Sale</a> 
+            <a class="list-item" routerLink="./purchase" routerLinkActive="list-item-active"><mat-icon class="sideicon">add_box</mat-icon>
+                    Purchase</a> 
+            <a class="list-item" routerLink="./product" routerLinkActive="list-item-active"><mat-icon class="sideicon">add_box</mat-icon>
+                Add Product</a> 
+        <a class="list-item" routerLink="./party" routerLinkActive="list-item-active"><mat-icon class="sideicon">person_add</mat-icon>
+                Add Party</a>  
+        <a class="list-item" routerLink="./bank" routerLinkActive="list-item-active"><mat-icon class="sideicon">account_balance</mat-icon>
+                    Add Bank</a> 
+        <a class="list-item" routerLink="./AddUser" routerLinkActive="list-item-active"><mat-icon class="sideicon">add</mat-icon>
+                    Add User</a> 
+        <a class="list-item" routerLink="./Settings" routerLinkActive="list-item-active"><mat-icon class="sideicon">settings</mat-icon>
+                Settings</a> 
+       <a class="list-item" routerLink="./OwnerProfile" routerLinkActive="list-item-active"><mat-icon class="sideicon">add</mat-icon>
+                    Owner Profile</a>
+        <a class="list-item" routerLink="./shop" routerLinkActive="list-item-active"><mat-icon class="sideicon">add</mat-icon>
+                       Shop</a>
+           </div>
+            
+    </div>
+    <div class="d-flex border-bottom text-white text-end pt-5">
+        <mat-icon class="pe-1" style="font-size: 20px;" >copyright</mat-icon> <h5>Copyright By : <b> Logix Solutionz</b></h5>
+    </div>
+</mat-nav-list>
+
+

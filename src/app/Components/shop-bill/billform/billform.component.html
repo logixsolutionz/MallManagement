@@ -1,0 +1,46 @@
+<div class="container container-fluid p-5">
+
+
+    <mat-form-field class="w-50 p-1" appearance="outline">
+        <mat-label>Select Bill Date</mat-label>
+        <input readonly="true" matInput (dateChange)="formateDate()" type="text" name="voucherDate" [(ngModel)]="shopBillDate"
+        [matDatepicker]="date">  
+        <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+        <mat-datepicker #date></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="w-50 p-1" appearance="outline">
+        <mat-label>Wapda Charges</mat-label>
+        <input matInput type="number" min="0" (change)="changeValue($event)" [(ngModel)]="wapdaCharges">
+    </mat-form-field>
+    <mat-form-field class="w-50 p-1" appearance="outline">
+        <mat-label>HVAC Charges</mat-label>
+        <input matInput type="number" min="0" (change)="changeValue($event)" [(ngModel)]="hvacCharges">
+    </mat-form-field>
+    <mat-form-field class="w-50 p-1" appearance="outline">
+        <mat-label>Generator Charges</mat-label>
+        <input matInput type="number" min="0" (change)="changeValue($event)" [(ngModel)]="GeneratorCharges">
+    </mat-form-field>
+    <mat-form-field class="w-50 p-1" appearance="outline">
+        <mat-label>Gas Charges</mat-label>
+        <input matInput type="number p-2" min="0" (change)="changeValue($event)" [(ngModel)]="GasCharges">
+    </mat-form-field>
+    <mat-form-field class="w-50 p-1" appearance="outline">
+        <mat-label>Commission Charges</mat-label>
+        <input matInput type="number p-2" min="0" (change)="changeValue($event)" [(ngModel)]="commissionCharges">
+    </mat-form-field>
+
+
+    <mat-form-field class="w-100 pt-1" appearance="outline">
+        <mat-label>Remarks</mat-label>
+        <textarea matInput type="number" [(ngModel)]="BillRemarks"></textarea>
+    </mat-form-field>
+
+
+    <div class="text-center">
+        <button class="btn btn-success me-2" (click)="saveBill()">Generate Bill</button>
+        <button class="btn btn-danger" (click)="reset()">Cancel</button>
+        <button class="btn btn-warning ms-5"  (click)="closeDialogue()">Close</button>
+    </div>
+
+</div>

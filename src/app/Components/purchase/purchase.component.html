@@ -1,0 +1,164 @@
+<div class="container-fluid">
+
+    <!-- ////////////////////////// first row////////////////// -->
+    <div class="mt-2">
+        <mat-card class="d-flex mb-2 ps-3 pe-3">
+
+
+            <div class="d-flex justify-content-between">
+
+
+                <div class="w-50  d-flex flex-column">
+                    <input type="text" name="searchProduct" id="searchProduct" class="border-0 p-1 mb-2 border-bottom border-success"
+                        [(ngModel)]="PBarcode" placeholder="Search Barcode / Name" autofocus>
+
+                    <div class="w-100 d-flex flex-column SearchConatiner cursorPointer"
+                        *ngIf="PBarcode != '' && PBarcode != undefined">
+                        <mat-card>
+                            <a *ngFor="let item of productsData| filter:PBarcode" (click)="holdDataFunction(item)" >{{item.productName}} (
+                                <b>{{item.pBarcode}}</b> )</a>
+                        </mat-card>
+                    </div>
+                </div>
+
+               <div class="pt-3 w-100 text-end">
+                <button class=" w-25 btn btn-success">Save</button>
+               </div>
+
+            </div>
+
+           
+
+        </mat-card>
+    </div>
+
+
+
+    <!-- ////////////////////////// Table Row////////////////// -->
+    <div >
+
+        <div class="border rounded table-Card">
+
+            <table class="table salePage" id="salePage">
+                <thead class="text-center tableHead">
+                    <th>S#</th>
+                    <th>Barcode</th>
+                    <th>Product Name</th>
+                    <th>Cost Price</th>
+                    <th>CTC Price</th>
+                    <th>WholeSale Price</th>
+                    <th>Retail Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Action</th>
+
+                </thead>
+
+                <tbody style="height: 30px;" class="text-center">
+                    <tr *ngFor="let item of holdData index as index">
+                        <th>{{index+1}}</th>
+                    <th>{{item.pBarcode}}</th>
+                    <th>{{item.productName}}</th>
+                    <th ><input type="number" [(ngModel)]="item.costPrice" min="0" class="text-center w-50" (change)="onCostChange(item)"  id="pCostPrice"></th>
+                    <th><input type="number" [(ngModel)]="item.ctcPrice" min="0" class="text-center w-50"  id="pCtcPrice"></th>
+                    <th><input type="number" [(ngModel)]="item.wholeSalePrice" min="0" class="text-center w-50"  id="pWholeSalePrice"></th>
+                    <th><input type="number" [(ngModel)]="item.salePrice" min="0" class="text-center w-50"  id="pSalePrice"></th>
+                    <th><input type="number" [(ngModel)]="item.quantity" min="0" class="text-center w-50" (change)="onQtyChange(item)"  id="pQty"></th>
+                    <th>{{item.costPrice * item.quantity}}</th>
+                    <th><mat-icon class="cursorPointer" (click)="delRow(item)">clear</mat-icon></th>
+                    </tr>
+                    
+                    
+                     
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <!-- //////////////////////////Row 3////////////////// -->
+
+
+    <div class="mt-2 pe-3">
+
+        <div >
+            <div class="d-flex flex-inline">
+
+                <!-- //////////////////////first Column/////////////////////// -->
+                <mat-card class="d-flex flex-column me-2 col-lg-4 p-2">
+
+                    <mat-form-field appearance="outline" class="w-50">
+                        <mat-label>Select Invoice Date</mat-label>
+                        <input [(ngModel)]="invoiceDate" readonly="true" matInput type="text" name="voucherDate" [matDatepicker]="voucherDate">
+                        <mat-datepicker-toggle matSuffix [for]="voucherDate"></mat-datepicker-toggle>
+                        <mat-datepicker #voucherDate></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="w-50">
+                        <mat-label>Reference Invoice No.</mat-label>
+                        <input  matInput type="text" name="refInvNo">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w-50">
+                        <mat-label>Remarks.</mat-label>
+                        <input  matInput type="text" name="refInvNo">
+                    </mat-form-field>
+
+
+                </mat-card>
+
+                <!-- //////////////////////Second Column/////////////////////// -->
+                <mat-card class="d-flex flex-column border-0 border-start col-lg-4 me-2 p-2">
+
+                    <mat-form-field appearance="outline" >
+                        <mat-label>Select Party</mat-label>
+                        <mat-select (selectionChange)="getCurSupplierData()" [(ngModel)]="partyID" name="customer">
+                            <mat-option *ngFor="let item of suppliersList" [value]="item.partyID">{{item.partyName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-column ">
+                            <label class="pt-2">Address :</label>
+                            <label class="pt-2">City :</label>
+                            <label class="pt-2">Mobile No. :</label>
+                            <label class="pt-2">CNIC :</label>
+                            
+                        </div>
+                        <div class="d-flex flex-column " >
+                            
+                                <label class="pt-2">{{currentPartyAddress}}</label>
+                                <label class="pt-2">{{currentPartyCity}}</label>
+                                <label class="pt-2">{{currentPartyMobile}}</label>
+                                <label class="pt-2">{{currentPartyCNIC}}</label>
+                           
+                            
+                        </div>
+                    </div>
+
+
+
+                </mat-card>
+
+
+                 <!-- //////////////////////Third Column/////////////////////// -->
+                <mat-card class="d-flex flex-column border-0 border-start col-lg-4 me-2 p-2  ">
+
+
+                    <div class="p-2 pt-3  text-center">
+                        <h2 class="text-secondary display-2">Total</h2>
+                        <h1 style="font-size: 80px;" class=" text-danger">{{mySubtoatal}}</h1>
+                    </div>
+
+                </mat-card>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+
+</div>

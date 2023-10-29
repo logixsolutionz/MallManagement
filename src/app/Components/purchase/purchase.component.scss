@@ -1,0 +1,44 @@
+input:focus{
+  
+    outline: none;
+}
+
+#searchProduct{
+    height: 60px;
+}
+
+.SearchConatiner{
+border: 0px solid rgb(180, 180, 180);
+background-color: rgb(242, 246, 252);
+margin-top: 50px;
+width: 100%;
+z-index:1000;
+position: absolute;
+max-height: 250px;
+overflow-y: scroll;
+max-width: 500px;
+
+
+
+
+ a{
+    padding: 10px;
+    text-decoration: none;
+    color:gray;
+    height: 30px;
+    display: block;
+    border-bottom: 1px solid rgb(174, 174, 174);
+ }
+
+}
+
+.table-Card{
+    height: 340px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+.tableHead{
+    background-color: rgb(244, 207, 140);
+    height: 40px;
+}

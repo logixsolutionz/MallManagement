@@ -1,0 +1,108 @@
+<mat-toolbar class="w-100">
+
+
+  <!-- <mat-toolbar-row >
+        
+
+            <a class="list-itm" routerLink="./dashBoard" routerLinkActive="active">DashBoard</a>
+
+            <a class="list-itm" routerLink="./coa" routerLinkActive="active">Charts of Accounts</a>
+
+            <a class="list-itm" routerLink="./voucher" routerLinkActive="active">
+                Voucher</a>
+                <a class="list-itm" routerLink="./shopBill" routerLinkActive="active">
+                    Shop Bill</a> 
+             <a class="list-itm" routerLink="./spvsb" routerLinkActive="active">
+                        Supervision</a>
+                  
+                <div class="dropdown cursorPointer ">
+                    <a class="list-itm ">
+                        Settings <mat-icon class="sideicon mb-1">arrow_drop_down</mat-icon></a>
+                        <div class="dropdown-content">
+                            <a class="list-itm" routerLink="./party" routerLinkActive="active">
+                                Add Party</a>
+                            <a class="list-itm" routerLink="./AddUser" routerLinkActive="active">
+                                Add User</a>
+                            <a class="list-itm" routerLink="./OwnerProfile" routerLinkActive="active">
+                                    Owner Profile</a>
+                            <a class="list-itm" routerLink="./shop" routerLinkActive="active">
+                                   Add Shop</a>
+                            <a class="list-itm" routerLink="./mapshop" routerLinkActive="active">
+                                       Map Shop</a>
+                            <a class="list-itm" routerLink="./Settings" routerLinkActive="active">
+                                        Settings</a>
+                       
+                        </div>
+                        </div>
+               
+                    
+
+            <div class="dropdown cursorPointer ">
+                <a class="list-itm" >
+                  Accounts Reports<mat-icon class="sideicon mb-1">arrow_drop_down</mat-icon></a>
+                <div class="dropdown-content" >
+                    <a class="list-itm" routerLink="./ldgrpt" routerLinkActive="active">Ledger</a>
+                    <a class="list-itm" routerLink="./tbrpt" routerLinkActive="active">Trial Balance</a>
+                    <a class="list-itm" routerLink="./plrpt" routerLinkActive="active">Profit & Loss Statement</a>
+                    <a class="list-itm" routerLink="./bsrpt" routerLinkActive="active">Balance Sheet</a>
+                    <a class="list-itm" routerLink="./CBRpt" routerLinkActive="active">Cash Book</a>
+                </div>
+            </div>
+
+        
+            <div class="dropdown cursorPointer ">
+                <a class="list-itm" >
+                  Reports<mat-icon class="sideicon mb-1">arrow_drop_down</mat-icon></a>
+                <div class="dropdown-content" >
+                    <a class="list-itm" routerLink="./srptl" routerLinkActive="active">List of Shops</a>
+                    <a class="list-itm" routerLink="./orptl" routerLinkActive="active">List of Owners</a>
+                    <a class="list-itm" routerLink="./rptcust" routerLinkActive="active">List of Customers</a>
+                    <a class="list-itm" routerLink="./BRptSW" routerLinkActive="active">Bill Report (ShopWise)</a>
+                    <a class="list-itm" routerLink="./BRptDW" routerLinkActive="active">Bill Report (DateWise)</a>
+                    <a class="list-itm" routerLink="./BRptS&PW" routerLinkActive="active">Bill Report (shop & Customerwise)</a>
+                    <a class="list-itm" routerLink="./SBRptMW" routerLinkActive="active">Bill Report (Monthwise)</a>
+                    <a class="list-itm" routerLink="./SRptOW" routerLinkActive="active">Shop Detail (OwnerWise)</a>
+                    
+                </div>
+            </div>
+            
+
+    </mat-toolbar-row> -->
+
+
+     <mat-toolbar-row >
+      
+      <span *ngFor="let item of menuList; let i = index">
+        <a *ngIf="item.haveSubMenu == 'No'" class="list-itm" routerLink="./{{item.pageLink}}" routerLinkActive="active">
+          {{ item.menuTitle }}
+        </a>
+      </span>
+
+      
+
+     
+
+
+
+
+      <span *ngFor="let item of menuList; let i = index">
+        <div *ngIf="item.haveSubMenu == 'Yes'" class="dropdown cursorPointer ">
+
+          <a class="list-itm" >{{ item.menuTitle }}<mat-icon class="sideicon mb-1">arrow_drop_down</mat-icon></a>
+
+          <div class="dropdown-content" >
+
+            <span *ngFor="let row of menuList; let i = index">
+              <a *ngIf="item.menuTitle == row.subMenuHead  " class="list-itm" routerLink="./{{row.pageLink}}" routerLinkActive="active">{{row.subMenuTitle}}</a>
+            </span>
+     
+          </div>
+      </div>
+    </span>
+
+
+    
+
+    </mat-toolbar-row> 
+
+</mat-toolbar>
