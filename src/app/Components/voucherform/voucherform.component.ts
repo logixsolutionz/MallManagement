@@ -97,9 +97,9 @@ export class VoucherformComponent implements OnInit{
   vType: any;
   transactionType: any = 'Cash';
   invoiceDate:Date = new Date();
-  refrenceCOA: any ;
-  partyID: any ;
-  COATitleID: any ;
+  refrenceCOA: any = '' ;
+  partyID: any = 0;
+  COATitleID: any = 0;
   DebitAmount: any = 0 ;
   CreditAmount: any = 0 ;
   VoucherData: any = [];
