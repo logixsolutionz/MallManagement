@@ -56,6 +56,7 @@ export class TrialBalanceComponent {
 
 
   getTrialBalance(){
+    this.getNotes();
     $('#summary2').hide();
     $('#summary1').show();
 this.TrialBalanceData = [];

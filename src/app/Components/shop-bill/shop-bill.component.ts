@@ -194,7 +194,7 @@ export class ShopBillComponent implements OnInit{
 
    generateBill(row:any){
     this.dialogue.open(BillformComponent,{
-      width:'40%',
+      width:'80%',
       data:row,
     }).afterClosed().subscribe(
       {
@@ -232,6 +232,26 @@ export class ShopBillComponent implements OnInit{
   }
 
 
+  PrintBill2(row:any) {
+    this.resetPrint();
+    this.pBillNo = row.billNo;
+    this.pBillDate = row.billDate;
+    this.pShopName = row.shopTitle;
+    this.pCustomername = row.partyName;
+    this.TotalCharges = row.charges;
+    this.billRemarks = row.remarks;
+    
+ 
+
+    this.getSingleBill2(row.billNo,'#printBill');
+   
+
+    
+    
+    
+  }
+
+
   ///////////////////////////////////////////////////////////
 
   printAfterSave(billNo:number){
@@ -261,6 +281,55 @@ export class ShopBillComponent implements OnInit{
     
     this.http.get(environment.mallApiUrl+'getsinglebill?billno='+billNo).subscribe(
       (Response:any)=>{
+      
+        this.previousBalance = Response[0].balance;
+        this.billData = Response;
+        if(Response.length > 0){
+
+          ///////////////// will push the rent if cam is not zero
+          if(Response[0].rentCharges != 0){
+            this.tableData.push(   
+              {title:'Rent',charges:Response[0].rentCharges * Response[0].shopAreaSQ},    
+             );
+          }
+
+          ///////////////// will push the cam if cam is not zero
+          if(Response[0].camCharges != 0){
+            this.tableData.push(
+              {title:'CAM',charges:Response[0].camCharges * Response[0].shopAreaSQ},
+             );
+          }
+          
+         
+           
+         for(var i = 0; Response.length > i;i++ ){
+          if(Response[i].serviceTitle != '-'){
+            this.tableData.push(
+              {title:Response[i].serviceTitle,charges:Response[i].serviceCharges});
+          }
+          
+            
+         }
+         
+         if(printDiv != ''){
+          setTimeout(() => {
+            this.globaldata.printData(printDiv);
+          }, 500);
+         }
+        
+           
+        }
+      }
+    )
+  }
+
+  getSingleBill2(billNo:any,printDiv:any){
+    
+    this.previousBalance = 0;
+    
+    this.http.get(environment.mallApiUrl+'getsinglebill2?billno='+billNo).subscribe(
+      (Response:any)=>{
+        console.log(Response);
       
         this.previousBalance = Response[0].balance;
         this.billData = Response;

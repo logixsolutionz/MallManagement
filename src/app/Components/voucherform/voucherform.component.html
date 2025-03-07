@@ -15,8 +15,7 @@
                     <mat-form-field class="col-lg-6 col-md-6 col-sm-6 col-xs-6" appearance="outline">
                         <mat-label>Select Voucher Type </mat-label>
                         <mat-select [(ngModel)]="vType" name="vType"  [disabled]="VoucherData != ''"
-                            (selectionChange)="getCoa();
-                            getRefCoa();">
+                            (selectionChange)="getCoa(); getRefCoa();">
                             <mat-option *ngFor="let item of voucherTypes "
                                 value="{{item.value}}">{{item.type}}</mat-option>
 
@@ -171,9 +170,14 @@
                         <textarea matInput [(ngModel)]="narration" name="Narration" placeholder="Narration"></textarea>
                     </mat-form-field>
                 </div>
-                <div style="text-align: center;font-size: 30px;">
+                <!-- <div style="text-align: center;font-size: 30px;">
                     <input type="button" id="save" class="btn btn-danger col-lg-6 " value="Save"
                         (click)="insertVoucher()">
+                </div> -->
+
+                <div class="text-center " >
+                    <button  class="btn btn-success btn-save  col-lg-3 me-2" (click)="insertVoucher()"> Save</button>
+                        <button   class="btn btn-danger btn-reset  col-lg-3 "  (click)="reset()"> Reset</button>
                 </div>
             </div>
             

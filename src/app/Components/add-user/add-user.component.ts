@@ -474,6 +474,7 @@ export class AddUserComponent implements OnInit{
     this.uRoleID = '';
     this.userID= '';
     this.disablePin = false;
+    this.uContact = '';
     
     this.menuList.forEach((e:any)=>{
       e.selectStatus = false;

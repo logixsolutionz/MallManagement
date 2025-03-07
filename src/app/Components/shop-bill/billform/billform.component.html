@@ -1,7 +1,231 @@
-<div class="container container-fluid p-5">
+<div class="container container-fluid p-5 row">
 
 
-    <mat-form-field class="w-50 p-1" appearance="outline">
+    <div class="row">
+        <mat-form-field class="col-md-4" appearance="outline">
+            <mat-label>Select Bill Date</mat-label>
+            <input readonly="true" matInput (dateChange)="formateDate()" type="text" name="voucherDate"
+                [(ngModel)]="shopBillDate" [matDatepicker]="date">
+            <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+            <mat-datepicker #date></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-4" appearance="outline">
+            <mat-label>Gas Charges</mat-label>
+            <input matInput type="number p-2" (keydown)="global.handleNumKeys($event)" min="0"
+                (change)="changeValue($event)" [(ngModel)]="GasCharges">
+        </mat-form-field>
+        <mat-form-field class="col-md-4" appearance="outline">
+            <mat-label>Commission Charges</mat-label>
+            <input matInput type="number p-2" min="0" (keydown)="global.handleNumKeys($event)"
+                (change)="changeValue($event)" [(ngModel)]="commissionCharges">
+        </mat-form-field>
+    </div>
+
+
+    <div class="row" style="margin-left:2px ;">
+
+        <div class="card d-flex justify-content-center">
+            <div class="col-md-12">
+                <div class="w-100 text-center">
+                    <span class="cardHeader" >Wapda</span>
+                </div>
+                <div class="avatar-upload col-lg-12 justify-content-center" >
+                    <div class="avatar-edit">
+                      <input type="file" id="wapda" accept=".png,.jpg,.jpeg,.jfif" #fileInput1 (change)="onLogo1Selected($event,'wapda')" />
+                      <label for="wapda"><mat-icon class=" mt-1">edit</mat-icon></label>
+                    </div>
+                    <div class="avatar-del">
+                      <label  (click)="WapdaReadingImg = ''" ><mat-icon class=" mt-1">delete</mat-icon></label>
+                    </div>
+                    <div class="avatar-preview">
+                      <div id="wapdaimg" style="background-size: cover;"  [ngStyle]="{ 'background-image': 'url(' + WapdaReadingImg + ')' }"></div>
+                    </div>
+                  </div>
+                
+            </div>
+
+            <div class="col-lg-12 d-flex flex-wrap justify-content-center mt-2 p-2">
+
+                <div class="d-flex flex-column col-md-5 me-4">
+                    <label for="" style="font-size: 10px;">Previous Reading</label>
+                    <input type="text"  class="input " (keydown)="global.handleNumKeys($event); " (keyup)="calculateUnits()"  [(ngModel)]="WapdaPreviousUnits"   />
+                </div>
+
+                <div class="d-flex flex-column col-md-5">
+                    <label for="" style="font-size: 10px;">Current Reading</label>
+                <input type="text"  class="input " (keydown)="global.handleNumKeys($event);" (keyup)="calculateUnits()"   [(ngModel)]="WapdaCurrentUnits"   />
+                </div>
+
+                <div class="d-flex flex-column col-md-5 me-4">
+                    <label for="" style="font-size: 10px;">Units</label>
+                    <input type="text"  class="input " disabled="true" (keydown)="global.handleNumKeys($event)"  [(ngModel)]="WapdaTotalUnits"    />
+                </div>
+
+                <div class="d-flex flex-column col-md-5">
+                    <label for="" style="font-size: 10px;">Unit Price</label> 
+                    <input type="text"  class="input " (keydown)="global.handleNumKeys($event)" (keyup)="calculateUnits()"  [(ngModel)]="WapdaUnitRate"   />
+                </div>
+
+                <div class="d-flex flex-column col-md-11">
+                    <label for="" style="font-size: 10px;">Total Charges</label>
+                    <input type="text"  class="input " disabled="true" (keydown)="global.handleNumKeys($event)"
+                (change)="changeValue($event)" [(ngModel)]="wapdaCharges"  />
+                </div>
+       
+    
+            </div>
+          
+        </div>
+
+
+        
+        <div class=" card p-3">
+            <div class="col-md-12">
+                <div class="w-100 text-center">
+                    <span class="cardHeader" >HVAC</span>
+                </div>
+                <div class="avatar-upload col-lg-12 justify-content-center">
+                    <div class="avatar-edit">
+                      <input type="file" id="hvac" accept=".png,.jpg,.jpeg" #fileInput1 (change)="onLogo1Selected($event,'hvac')" />
+                      <label for="hvac"><mat-icon class=" mt-1">edit</mat-icon></label>
+                    </div>
+                    <div class="avatar-del">
+                      <label  (click)="HvacReadingImg = ''" ><mat-icon class=" mt-1">delete</mat-icon></label>
+                    </div>
+                    <div class="avatar-preview">
+                      <div id="hvacimg"  style="background-size: cover;"  [ngStyle]="{ 'background-image': 'url(' + HvacReadingImg + ')' }"></div>
+                    </div>
+                  </div>
+                
+            </div>
+
+            <div class="col-lg-12 d-flex flex-wrap justify-content-center mt-2">
+
+                <div class="d-flex flex-column col-md-5 me-4">
+                    <label for="" style="font-size: 10px;">Running Hours</label>
+                    <input type="text"  class="input " (keydown)="global.handleNumKeys($event)" (keyup)="calculateUnits()"   [(ngModel)]="HvacPreviousUnits"  />
+                </div>
+
+                <div class="d-flex flex-column col-md-5 d-none" >
+                    <label for="" style="font-size: 10px;">Current Reading</label>
+                <input type="text"  class="input "  (keydown)="global.handleNumKeys($event)"  [(ngModel)]="HvacCurrentUnits"   />
+                </div>
+
+                <div class="d-flex flex-column col-md-5 ">
+                    <label for="" style="font-size: 10px;">Units</label>
+                    <input type="text"  class="input " (keydown)="global.handleNumKeys($event)" (keyup)="calculateUnits()"  [(ngModel)]="HvacTotalUnits"    />
+                </div>
+
+                <div class="d-flex flex-column col-md-5 me-4">
+                    <label for="" style="font-size: 10px;">Unit Price</label>
+                    <input type="text"  class="input " (keydown)="global.handleNumKeys($event)" (keyup)="calculateUnits()"  [(ngModel)]="HvacUnitRate"  />
+                </div>
+
+                <div class="d-flex flex-column col-md-5 ">
+                    <label for="" style="font-size: 10px;">KWH</label>
+                    <input type="text"  class="input " (keydown)="global.handleNumKeys($event)"   [(ngModel)]="HvacKwh"  />
+                </div>
+
+                <div class="d-flex flex-column col-md-11">
+                    <label for="" style="font-size: 10px;">Total Charges</label>
+                    <input type="text"  class="input" disabled="true" (keydown)="global.handleNumKeys($event)"
+                    (change)="changeValue($event)" [(ngModel)]="hvacCharges"  />
+                </div>
+
+                
+    
+            </div>
+          
+        </div>
+
+        <div class=" card p-3">
+            <div class="col-md-12">
+                <div class="w-100 text-center">
+                    <span class="cardHeader" >Generator</span>
+                </div>
+                <div class="avatar-upload col-lg-12 justify-content-center">
+                   
+                    <div class="avatar-edit">
+                      <input type="file" id="generator" accept=".png,.jpg,.jpeg" #fileInput1 (change)="onLogo1Selected($event,'generator')" />
+                      <label for="generator"><mat-icon class=" mt-1">edit</mat-icon></label>
+                    </div>
+                    <div class="avatar-del">
+                      <label  (click)="GeneratorReadingImg = ''" ><mat-icon class=" mt-1">delete</mat-icon></label>
+                    </div>
+                    <div class="avatar-preview">
+                      <div id="generatorimg"  style="background-size: cover;"  [ngStyle]="{ 'background-image': 'url(' + GeneratorReadingImg + ')' }"></div>
+                    </div>
+                  </div>
+                
+            </div>
+
+            <div class="col-lg-12 d-flex flex-wrap justify-content-center mt-2">
+
+                <div class="d-flex flex-column col-md-5 me-4">
+                    <label for="" style="font-size: 10px;">Previous Reading</label>
+                    <input type="text"  class="input " (keydown)="global.handleNumKeys($event)" (keyup)="calculateUnits()"  [(ngModel)]="GeneratorPreviousUnits"   />
+                </div>
+
+                <div class="d-flex flex-column col-md-5">
+                    <label for="" style="font-size: 10px;">Current Reading</label>
+                <input type="text"  class="input " (keydown)="global.handleNumKeys($event)" (keyup)="calculateUnits()"   [(ngModel)]="GeneratorCurrentUnits"   />
+                </div>
+
+                <div class="d-flex flex-column col-md-5 me-4">
+                    <label for="" style="font-size: 10px;">Units</label>
+                    <input type="text"  class="input " disabled="true" (keydown)="global.handleNumKeys($event)"   [(ngModel)]="GeneratorTotalUnits"   />
+                </div>
+
+                <div class="d-flex flex-column col-md-5">
+                    <label for="" style="font-size: 10px;">Unit Price</label>
+                    <input type="text"  class="input " (keydown)="global.handleNumKeys($event)" (keyup)="calculateUnits()"  [(ngModel)]="GeneratorUnitRate"   />
+                </div>
+
+                <div class="d-flex flex-column col-md-11">
+                    <label for="" style="font-size: 10px;">Total Charges</label>
+                    <input type="text"  class="input" disabled="true" (keydown)="global.handleNumKeys($event)"
+                    (change)="changeValue($event)" [(ngModel)]="GeneratorCharges"  />
+                </div>
+    
+            </div>
+          
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+   <div class="row">
+    <mat-form-field class="col-md-12 mt-2" appearance="outline">
+        <mat-label>Remarks</mat-label>
+        <textarea matInput type="number" [(ngModel)]="BillRemarks"></textarea>
+    </mat-form-field>
+   </div>
+
+
+    <div class="text-center">
+        <button class="btn btn-success me-2" (click)="saveBill()">Generate Bill</button>
+        <button class="btn btn-danger" (click)="reset()">Cancel</button>
+        <button class="btn btn-warning ms-5" (click)="closeDialogue()">Close</button>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+<!-- <div class="container container-fluid p-5 row">
+
+
+    <mat-form-field class="col-md-4" appearance="outline">
         <mat-label>Select Bill Date</mat-label>
         <input readonly="true" matInput (dateChange)="formateDate()" type="text" name="voucherDate" [(ngModel)]="shopBillDate"
         [matDatepicker]="date">  
@@ -9,31 +233,101 @@
         <mat-datepicker #date></mat-datepicker>
     </mat-form-field>
 
-    <mat-form-field class="w-50 p-1" appearance="outline">
-        <mat-label>Wapda Charges</mat-label>
-        <input matInput type="number" min="0" (change)="changeValue($event)" [(ngModel)]="wapdaCharges">
-    </mat-form-field>
-    <mat-form-field class="w-50 p-1" appearance="outline">
-        <mat-label>HVAC Charges</mat-label>
-        <input matInput type="number" min="0" (change)="changeValue($event)" [(ngModel)]="hvacCharges">
-    </mat-form-field>
-    <mat-form-field class="w-50 p-1" appearance="outline">
-        <mat-label>Generator Charges</mat-label>
-        <input matInput type="number" min="0" (change)="changeValue($event)" [(ngModel)]="GeneratorCharges">
-    </mat-form-field>
-    <mat-form-field class="w-50 p-1" appearance="outline">
+    <mat-form-field class="col-md-4" appearance="outline">
         <mat-label>Gas Charges</mat-label>
-        <input matInput type="number p-2" min="0" (change)="changeValue($event)" [(ngModel)]="GasCharges">
+        <input matInput type="number p-2" (keydown)="global.handleNumKeys($event)" min="0" (change)="changeValue($event)" [(ngModel)]="GasCharges">
     </mat-form-field>
-    <mat-form-field class="w-50 p-1" appearance="outline">
+    <mat-form-field class="col-md-4" appearance="outline">
         <mat-label>Commission Charges</mat-label>
-        <input matInput type="number p-2" min="0" (change)="changeValue($event)" [(ngModel)]="commissionCharges">
+        <input matInput type="number p-2" min="0" (keydown)="global.handleNumKeys($event)" (change)="changeValue($event)" [(ngModel)]="commissionCharges">
+    </mat-form-field>
+
+    <mat-form-field class="col-md-2" appearance="outline">
+        <mat-label>Previous Reading</mat-label>
+        <input matInput type="number" min="0" (keydown)="global.handleNumKeys($event)">
+    </mat-form-field>
+
+    <mat-form-field class="col-md-2" appearance="outline">
+        <mat-label>Current Reading</mat-label>
+        <input matInput type="number" min="0" (keydown)="global.handleNumKeys($event)">
+    </mat-form-field>
+
+    <mat-form-field class="col-md-2" appearance="outline">
+        <mat-label>Units</mat-label>
+        <input matInput type="number" min="0" (keydown)="global.handleNumKeys($event)">
+    </mat-form-field>
+
+    <mat-form-field class="col-md-2" appearance="outline">
+        <mat-label>Unit Price</mat-label>
+        <input matInput type="number" min="0" (keydown)="global.handleNumKeys($event)">
+    </mat-form-field>
+
+    <mat-form-field class="col-md-4" appearance="outline">
+        <mat-label>Wapda Charges</mat-label>
+        <input matInput type="number" min="0" (keydown)="global.handleNumKeys($event)" (change)="changeValue($event)" [(ngModel)]="wapdaCharges">
+    </mat-form-field>
+
+    
+
+
+
+    <mat-form-field class="col-md-2" appearance="outline">
+        <mat-label>Previous Reading</mat-label>
+        <input matInput type="number" min="0" (keydown)="global.handleNumKeys($event)">
+    </mat-form-field>
+
+    <mat-form-field class="col-md-2" appearance="outline">
+        <mat-label>Current Reading</mat-label>
+        <input matInput type="number" min="0" (keydown)="global.handleNumKeys($event)">
+    </mat-form-field>
+
+    <mat-form-field class="col-md-2" appearance="outline">
+        <mat-label>Units</mat-label>
+        <input matInput type="number" min="0" (keydown)="global.handleNumKeys($event)">
+    </mat-form-field>
+
+    <mat-form-field class="col-md-2" appearance="outline">
+        <mat-label>Unit Price</mat-label>
+        <input matInput type="number" min="0" (keydown)="global.handleNumKeys($event)">
+    </mat-form-field>
+
+    <mat-form-field class="col-md-4" appearance="outline">
+        <mat-label>HVAC Charges</mat-label>
+        <input matInput type="number" min="0" (keydown)="global.handleNumKeys($event)" (change)="changeValue($event)" [(ngModel)]="hvacCharges">
     </mat-form-field>
 
 
-    <mat-form-field class="w-100 pt-1" appearance="outline">
+
+
+    <mat-form-field class="col-md-2" appearance="outline">
+        <mat-label>Previous Reading</mat-label>
+        <input matInput type="number" min="0" (keydown)="global.handleNumKeys($event)">
+    </mat-form-field>
+
+    <mat-form-field class="col-md-2" appearance="outline">
+        <mat-label>Current Reading</mat-label>
+        <input matInput type="number" min="0" (keydown)="global.handleNumKeys($event)">
+    </mat-form-field>
+
+    <mat-form-field class="col-md-2" appearance="outline">
+        <mat-label>Units</mat-label>
+        <input matInput type="number" min="0" (keydown)="global.handleNumKeys($event)">
+    </mat-form-field>
+
+    <mat-form-field class="col-md-2" appearance="outline">
+        <mat-label>Unit Price</mat-label>
+        <input matInput type="number" min="0" (keydown)="global.handleNumKeys($event)">
+    </mat-form-field>
+    <mat-form-field class="col-md-4" appearance="outline">
+        <mat-label>Generator Charges</mat-label>
+        <input matInput type="number" min="0" (keydown)="global.handleNumKeys($event)" (change)="changeValue($event)" [(ngModel)]="GeneratorCharges">
+    </mat-form-field>
+  
+
+
+    <mat-form-field class="col-md-12" appearance="outline">
         <mat-label>Remarks</mat-label>
-        <textarea matInput type="number" [(ngModel)]="BillRemarks"></textarea>
+        <textarea matInput type="number"  [(ngModel)]="BillRemarks"></textarea>
     </mat-form-field>
 
 
@@ -43,4 +337,4 @@
         <button class="btn btn-warning ms-5"  (click)="closeDialogue()">Close</button>
     </div>
 
-</div>
+</div> -->

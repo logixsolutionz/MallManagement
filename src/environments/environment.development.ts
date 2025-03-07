@@ -6,9 +6,11 @@ export const environment = {
 
     //mallApiUrl: 'http://localhost:50873/',
      
-    // mallApiUrl: 'http://192.168.10.100:2002/',       //// Local Server
+    //mallApiUrl: 'http://192.168.10.100:2002/',       //// Local Server
 
-
-     mallApiUrl: 'http://159.69.174.21:2002/',     ///// live Server
+        mallApiUrl: 'http://192.168.100.37:2002/'
+    // mallApiUrl: 'http://159.69.174.21:2002/',     ///// live Server
+     
+     //mallApiUrl: 'http://192.168.10.200:7001/',      /////// Mehria Mall         
     
 };

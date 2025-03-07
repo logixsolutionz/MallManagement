@@ -7,6 +7,7 @@ import { ShopBillComponent } from '../shop-bill.component';
 import { environment } from 'src/environments/environment.development';
 import { error } from 'jquery';
 import { AppComponent } from 'src/app/app.component';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-billform',
@@ -28,6 +29,34 @@ export class BillformComponent implements OnInit {
   GeneratorCharges:any;
   commissionCharges:any;
 
+  wapdaImg:any = '';
+  generatorImg:any = '';
+  HVACImg:any = '';
+
+
+
+  WapdaPreviousUnits:any = 0;
+  WapdaCurrentUnits:any = 0;
+  WapdaUnitRate:any  = 0;
+  WapdaTotalUnits:any = 0;
+  WapdaReadingImg:any = '';
+
+
+
+  HvacPreviousUnits:any = 0;
+  HvacCurrentUnits = 0;
+  HvacUnitRate:any = 0;
+  HvacTotalUnits:any = 0 ;
+  HvacReadingImg:any = '' ;
+  HvacKwh:any = 0;
+
+  GeneratorPreviousUnits:any = 0;
+  GeneratorCurrentUnits:any =0;
+  GeneratorUnitRate:any  = 0;
+  GeneratorTotalUnits:any = 0 ;
+  GeneratorReadingImg:any = '' ;
+
+
 
 
   constructor(
@@ -35,7 +64,7 @@ export class BillformComponent implements OnInit {
     private http:HttpClient,
     @Inject(MAT_DIALOG_DATA) public editData : any,
     private dialogRef: MatDialogRef<ShopBillComponent>,
-    private global:GlobalDataModule,
+    public global:GlobalDataModule,
     private msg:NotificationService,
     
   ){}
@@ -51,6 +80,46 @@ export class BillformComponent implements OnInit {
   }
 
 
+
+  onLogo1Selected(event:any,type:any) {
+    var ext = this.global.getExtension(event.target.value);
+    if(ext == 'png' ||ext == 'jpg' ||ext == 'jpeg'||ext == 'jfif'){
+      let targetEvent = event.target;
+  
+      let file:File = targetEvent.files[0];
+  
+      let fileReader:FileReader = new FileReader();
+  
+  
+    
+    fileReader.onload =(e)=>{
+      if(type == 'wapda'){
+        this.WapdaReadingImg = fileReader.result;
+      }else if(type == 'hvac'){
+        this.HvacReadingImg = fileReader.result;
+      }else if(type == 'generator'){
+        this.GeneratorReadingImg = fileReader.result;
+      }
+    }
+  
+    fileReader.readAsDataURL(file);
+
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      input.value = ''; // Reset input value
+    }
+  
+    }else{
+      
+        event.target.value = '';
+        this.msg.WarnNotify('File Must Be in png / jpg / jpeg formate Only');
+     
+      }
+    }
+
+
+
+
   changeValue(val: any) {
     // alert(val.target.value);
     if (val.target.value < '0') {
@@ -64,14 +133,23 @@ export class BillformComponent implements OnInit {
   //////////////////////////////////////////////////////////////
 
   saveBill(){
-    $('.loaderDark').show();
    
-     if(this.wapdaCharges === '' || this.wapdaCharges === undefined){
+     if(this.wapdaCharges === '' || this.wapdaCharges === undefined || this.wapdaCharges == 0 || this.wapdaCharges < 0){
       this.msg.WarnNotify('Enter Wapda Charges')
-    }else if(this.BillRemarks == '' || this.BillRemarks == undefined){
-      this.BillRemarks = '-';
-    }else{
-      
+    }else if(this.wapdaCharges != '' && this.WapdaReadingImg == ''){
+        this.msg.WarnNotify('Insert Meter Reading Img')
+    }else if(this.hvacCharges != '' && this.HvacReadingImg == ''){
+      this.msg.WarnNotify('Insert HVAC Reading Img')
+    }else if(this.GeneratorCharges != '' && this.GeneratorReadingImg == ''){
+      this.msg.WarnNotify('Insert Generator Reading Img')
+    }
+
+    else{
+
+
+       if(this.BillRemarks == '' || this.BillRemarks == undefined){
+        this.BillRemarks = '-';
+      }
       $('.loaderDark').show();
 
      
@@ -89,6 +167,27 @@ export class BillformComponent implements OnInit {
         GeneratorCharges:this.GeneratorCharges,
         CommissionCharges:this.commissionCharges,
         UserID: this.global.getUserID(),
+
+        WapdaPreviousUnits:this.WapdaPreviousUnits,
+        WapdaCurrentUnits:this.WapdaCurrentUnits,
+        WapdaUnitRate :this.WapdaUnitRate,
+        WapdaTotalUnits :this.WapdaTotalUnits,
+        WapdaReadingImg : this.WapdaReadingImg,
+        
+        HvacPreviousUnits : this.HvacPreviousUnits,
+        HvacCurrentUnits : this.HvacPreviousUnits,
+        HvacUnitRate : this.HvacUnitRate,
+        HvacTotalUnits : this.HvacTotalUnits,
+        HvacReadingImg: this.HvacReadingImg,
+        HvacKwh : this.HvacKwh,
+      
+        GeneratorPreviousUnits: this.GeneratorPreviousUnits,
+        GeneratorCurrentUnits: this.GeneratorCurrentUnits,
+        GeneratorUnitRate  : this.GeneratorUnitRate,
+        GeneratorTotalUnits : this.GeneratorTotalUnits,
+        GeneratorReadingImg: this.GeneratorReadingImg,
+
+
         }).subscribe(
           (Response:any)=>{
             if(Response.msg == 'Data Saved Successfully'){
@@ -120,6 +219,19 @@ export class BillformComponent implements OnInit {
   }
 
 
+
+  calculateUnits(){
+    this.WapdaTotalUnits = this.WapdaCurrentUnits - this.WapdaPreviousUnits;
+    this.wapdaCharges = parseFloat(this.WapdaUnitRate) * this.WapdaTotalUnits;
+
+
+    this.hvacCharges = parseFloat(this.HvacTotalUnits) * parseFloat(this.HvacUnitRate);
+
+    this.GeneratorTotalUnits = this.GeneratorCurrentUnits - this.GeneratorPreviousUnits;
+    this.GeneratorCharges = parseFloat(this.GeneratorTotalUnits) * parseFloat(this.GeneratorUnitRate);
+    
+
+  }
   
 
 
@@ -131,6 +243,17 @@ export class BillformComponent implements OnInit {
     this.shopBillDate= new Date(Date.now());
     this.wapdaCharges = '';
     this.BillRemarks = '';
+  }
+
+
+  viewImg:any = '';
+  showImg(img:any,id:any){
+   
+    if(img != ''){
+      alert();
+      $(id).show();
+      this.viewImg = img;
+    }
   }
 
 
